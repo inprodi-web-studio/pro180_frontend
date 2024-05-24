@@ -7,7 +7,7 @@
   },
   "style": {
     "scheme": "css-modules",
-    "defaultStyleCssFilePath": "plasmic/plasmic__default_style.css"
+    "defaultStyleCssFilePath": "plasmic/plasmic__default_style.module.css"
   },
   "images": {
     "scheme": "public-files",
@@ -41,7 +41,8 @@
           "componentImportPath": "@plasmicpkgs/plasmic-basic-components"
         }
       ],
-      "customFunctions": []
+      "customFunctions": [],
+      "jsBundleThemes": []
     },
     {
       "projectId": "jkU633o1Cz7HrJdwdxhVHk",
@@ -95,7 +96,8 @@
           }
         }
       ],
-      "customFunctions": []
+      "customFunctions": [],
+      "jsBundleThemes": []
     },
     {
       "projectId": "ohDidvG9XsCeFumugENU3J",
@@ -495,7 +497,8 @@
           "componentImportPath": "@plasmicpkgs/antd5/skinny/registerBreadcrumb"
         }
       ],
-      "customFunctions": []
+      "customFunctions": [],
+      "jsBundleThemes": []
     },
     {
       "projectId": "kS7YGZfVr6mU43XDQjXELc",
@@ -517,7 +520,8 @@
           "componentImportPath": "@plasmicpkgs/react-chartjs-2"
         }
       ],
-      "customFunctions": []
+      "customFunctions": [],
+      "jsBundleThemes": []
     },
     {
       "projectId": "5dGW8Awro3qq8Hh5MveXLP",
@@ -545,7 +549,8 @@
           "componentImportPath": "@plasmicpkgs/lottie-react"
         }
       ],
-      "customFunctions": []
+      "customFunctions": [],
+      "jsBundleThemes": []
     },
     {
       "projectId": "5nPYJMkHKsudqrrya3SLGq",
@@ -958,7 +963,8 @@
           "name": "getApps",
           "namespace": null
         }
-      ]
+      ],
+      "jsBundleThemes": []
     },
     {
       "projectId": "okr6zFws8g9BFEw4Fons9x",
@@ -1066,49 +1072,49 @@
           "id": "eSaP_wpvN1LT",
           "name": "Card",
           "displayName": "Card",
-          "componentImportPath": "~/components/Card/Card.tsx"
+          "componentImportPath": "/components/Card/Card.tsx"
         },
         {
           "id": "Z13Cbt3lzIov",
           "name": "TextInput",
           "displayName": "TextInput",
-          "componentImportPath": "~/components/TextInput/TextInput.tsx"
+          "componentImportPath": "/components/TextInput/TextInput.tsx"
         },
         {
           "id": "QqMpCHKA1X8a",
           "name": "PasswordInput",
           "displayName": "PasswordInput",
-          "componentImportPath": "~/components/PasswordInput/PasswordInput.tsx"
+          "componentImportPath": "/components/PasswordInput/PasswordInput.tsx"
         },
         {
           "id": "fWdCiIO3iYJP",
           "name": "Button",
           "displayName": "Button",
-          "componentImportPath": "~/components/Button/Button.tsx"
+          "componentImportPath": "/components/Button/Button.tsx"
         },
         {
           "id": "74lXQ001buDL",
           "name": "Divider",
           "displayName": "Divider",
-          "componentImportPath": "~/components/Divider/Divider.tsx"
+          "componentImportPath": "/components/Divider/Divider.tsx"
         },
         {
           "id": "3qU2HUTJGzKS",
           "name": "AnimatedNumber",
           "displayName": "AnimatedNumber",
-          "componentImportPath": "~/components/AnimatedNumber/AnimatedNumber.tsx"
+          "componentImportPath": "/components/AnimatedNumber/AnimatedNumber.tsx"
         },
         {
           "id": "6mq9rlegoNNY",
           "name": "Avatar",
           "displayName": "Avatar",
-          "componentImportPath": "~/components/Avatar/Avatar.tsx"
+          "componentImportPath": "/components/Avatar/Avatar.tsx"
         },
         {
           "id": "B7zuCh0gEun3",
           "name": "DropdownConfig",
           "displayName": "DropdownConfig",
-          "componentImportPath": "~/components/Dropdown/Dropdown.tsx"
+          "componentImportPath": "/components/Dropdown/Dropdown.tsx"
         },
         {
           "id": "orX99ZgGq61t",
@@ -1126,13 +1132,13 @@
           "id": "-CZuoqiraz4X",
           "name": "Cropper",
           "displayName": "Cropper",
-          "componentImportPath": "~/components/Cropper/Cropper.tsx"
+          "componentImportPath": "/components/Cropper/Cropper.tsx"
         },
         {
           "id": "KpgNf9gXNZR4",
           "name": "NumberInput",
           "displayName": "NumberInput",
-          "componentImportPath": "~/components/NumberInput/NumberInput.tsx"
+          "componentImportPath": "/components/NumberInput/NumberInput.tsx"
         }
       ],
       "customFunctions": [
