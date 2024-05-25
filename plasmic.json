@@ -1102,7 +1102,7 @@
           "id": "3qU2HUTJGzKS",
           "name": "AnimatedNumber",
           "displayName": "AnimatedNumber",
-          "componentImportPath": "/components/AnimatedNumber/AnimatedNumber.tsx"
+          "componentImportPath": "/components/AnimatedNumber.tsx"
         },
         {
           "id": "6mq9rlegoNNY",
