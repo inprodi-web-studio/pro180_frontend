@@ -884,37 +884,37 @@
           "id": "nDtozaD8mTAX",
           "name": "Card",
           "displayName": "Card",
-          "componentImportPath": "~/components/Card/Card.tsx"
+          "componentImportPath": "./components/Card/Card.tsx"
         },
         {
           "id": "jViHg3nb4YL3",
           "name": "TextInput",
           "displayName": "TextInput",
-          "componentImportPath": "~/components/TextInput/TextInput.tsx"
+          "componentImportPath": "./components/TextInput/TextInput.tsx"
         },
         {
           "id": "Tuix-QVl_vRD",
           "name": "PasswordInput",
           "displayName": "PasswordInput",
-          "componentImportPath": "~/components/PasswordInput/PasswordInput.tsx"
+          "componentImportPath": "./components/PasswordInput/PasswordInput.tsx"
         },
         {
           "id": "kQTcb2I1HqhX",
           "name": "Button",
           "displayName": "Button",
-          "componentImportPath": "~/components/Button/Button.tsx"
+          "componentImportPath": "./components/Button/Button.tsx"
         },
         {
           "id": "7-ylPAFdGTBs",
           "name": "Divider",
           "displayName": "Divider",
-          "componentImportPath": "~/components/Divider/Divider.tsx"
+          "componentImportPath": "./components/Divider/Divider.tsx"
         },
         {
           "id": "qbYBio9o21Vq",
           "name": "AnimatedNumber",
           "displayName": "AnimatedNumber",
-          "componentImportPath": "~/components/AnimatedNumber/AnimatedNumber.tsx"
+          "componentImportPath": "./components/AnimatedNumber/AnimatedNumber.tsx"
         },
         {
           "id": "KV3-W_-eQ3R8",
@@ -926,7 +926,7 @@
           "id": "2FAf85kMy1wq",
           "name": "DropdownConfig",
           "displayName": "DropdownConfig",
-          "componentImportPath": "~/components/Dropdown/Dropdown.tsx"
+          "componentImportPath": "./components/Dropdown/Dropdown.tsx"
         },
         {
           "id": "AOR__s9wDoG_",
@@ -938,7 +938,7 @@
           "id": "tNcz9rhbc3sz",
           "name": "Avatar",
           "displayName": "Avatar",
-          "componentImportPath": "~/components/Avatar/Avatar.tsx"
+          "componentImportPath": "./components/Avatar/Avatar.tsx"
         }
       ],
       "customFunctions": [
@@ -1102,7 +1102,7 @@
           "id": "3qU2HUTJGzKS",
           "name": "AnimatedNumber",
           "displayName": "AnimatedNumber",
-          "componentImportPath": "/components/AnimatedNumber/AnimatedNumber.tsx"
+          "componentImportPath": "/components/AnimatedNumber.tsx"
         },
         {
           "id": "6mq9rlegoNNY",
