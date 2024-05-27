@@ -59,7 +59,7 @@ import {
   useGlobalActions
 } from "@plasmicapp/react-web/lib/host";
 
-import Button from "~/components/Button/Button.tsx"; // plasmic-import: fWdCiIO3iYJP/codeComponent
+import Button from "../../Button/Button"; // plasmic-import: fWdCiIO3iYJP/codeComponent
 import { LoadingBoundary } from "@plasmicpkgs/plasmic-basic-components";
 import { LottieWrapper } from "@plasmicpkgs/lottie-react";
 

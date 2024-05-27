@@ -8,7 +8,6 @@ import * as React from "react";
 import { hasVariant, ensureGlobalVariants } from "@plasmicapp/react-web";
 import { AntdConfigProvider } from "@plasmicpkgs/antd5/skinny/registerConfigProvider";
 import { AuthGlobalContext } from "../../AuthGlobalContext"; // plasmic-import: orX99ZgGq61t/codeComponent
-import { AppGlobalContext } from "../../AppGlobalContext"; // plasmic-import: i1HnrIDOQxR5/codeComponent
 
 export interface GlobalContextsProviderProps {
   children?: React.ReactElement;
@@ -129,9 +128,7 @@ export default function GlobalContextsProvider(
       }
     >
       <AuthGlobalContext {...authGlobalContextProps}>
-        <AppGlobalContext {...appGlobalContextProps}>
           {children}
-        </AppGlobalContext>
       </AuthGlobalContext>
     </AntdConfigProvider>
   );

@@ -18,11 +18,19 @@
     "@plasmicpkgs/plasmic-basic-components": "^0.0.215",
     "@plasmicpkgs/plasmic-rich-components": "^1.0.185",
     "@plasmicpkgs/react-chartjs-2": "^1.0.101",
+    "@types/lodash.debounce": "^4.0.9",
+    "@types/react-input-mask": "^3.0.5",
+    "antd": "^5.17.4",
+    "antd-img-crop": "^4.22.0",
     "chart.js": "^4.4.3",
+    "lodash.debounce": "^4.0.8",
     "next": "14.2.3",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
-    "react-dom": "^18"
+    "react-countup": "^6.5.3",
+    "react-dom": "^18",
+    "react-input-mask": "^2.0.4",
+    "sonner": "^1.4.41"
   },
   "devDependencies": {
     "@types/node": "^20",

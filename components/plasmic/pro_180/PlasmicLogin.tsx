@@ -66,13 +66,13 @@ import {
   usePlasmicInvalidate
 } from "@plasmicapp/react-web/lib/data-sources";
 
-import Card from "~/components/Card/Card.tsx"; // plasmic-import: eSaP_wpvN1LT/codeComponent
+import Card from "../../Card/Card"; // plasmic-import: eSaP_wpvN1LT/codeComponent
 import TitleText from "../../TitleText"; // plasmic-import: NxJEJ3yCzHgk/component
 import Form from "../../Form"; // plasmic-import: rb5_PS-3AnYe/component
 import FormField from "../../FormField"; // plasmic-import: yLHiIXcGvJuv/component
-import TextInput from "~/components/TextInput/TextInput.tsx"; // plasmic-import: Z13Cbt3lzIov/codeComponent
-import PasswordInput from "~/components/PasswordInput/PasswordInput.tsx"; // plasmic-import: QqMpCHKA1X8a/codeComponent
-import Button from "~/components/Button/Button.tsx"; // plasmic-import: fWdCiIO3iYJP/codeComponent
+import TextInput from "../../TextInput/TextInput.tsx"; // plasmic-import: Z13Cbt3lzIov/codeComponent
+import PasswordInput from "../../PasswordInput/PasswordInput.tsx"; // plasmic-import: QqMpCHKA1X8a/codeComponent
+import Button from "../../Button/Button.tsx"; // plasmic-import: fWdCiIO3iYJP/codeComponent
 
 import "@plasmicapp/react-web/lib/plasmic.css";
 
@@ -82,8 +82,8 @@ import plasmic_inprodi_design_system_css from "../inprodi_design_system/plasmic.
 import projectcss from "./plasmic.module.css"; // plasmic-import: okr6zFws8g9BFEw4Fons9x/projectcss
 import sty from "./PlasmicLogin.module.css"; // plasmic-import: YiC5r609TqU0/css
 
-import { validateEmail as __fn_validateEmail } from "~/helpers/validateEmail"; // plasmic-import: validateEmail/customFunction
-import { showNotification as __fn_showNotification } from "~/helpers/showNotification"; // plasmic-import: showNotification/customFunction
+import { validateEmail as __fn_validateEmail } from "../../../helpers/validateEmail"; // plasmic-import: validateEmail/customFunction
+import { showNotification as __fn_showNotification } from "../../../helpers/showNotification"; // plasmic-import: showNotification/customFunction
 
 createPlasmicElementProxy;
 
