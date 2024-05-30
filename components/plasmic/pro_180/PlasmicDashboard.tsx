@@ -70,10 +70,10 @@ import AppShell from "../../AppShell"; // plasmic-import: zdymZc8lM6F1/component
 import { AntdModal } from "@plasmicpkgs/antd5/skinny/registerModal";
 import Form from "../../Form"; // plasmic-import: rb5_PS-3AnYe/component
 import FormField from "../../FormField"; // plasmic-import: yLHiIXcGvJuv/component
-import NumberInput from "../../NumberInput/NumberInput.tsx"; // plasmic-import: KpgNf9gXNZR4/codeComponent
-import Button from "../../Button/Button"; // plasmic-import: fWdCiIO3iYJP/codeComponent
+import NumberInput from "/components/NumberInput/NumberInput.tsx"; // plasmic-import: KpgNf9gXNZR4/codeComponent
+import Button from "/components/Button/Button.tsx"; // plasmic-import: fWdCiIO3iYJP/codeComponent
 import Statistic from "../../Statistic"; // plasmic-import: XTNsZrFRrZal/component
-import Card from "../../Card/Card.tsx"; // plasmic-import: eSaP_wpvN1LT/codeComponent
+import Card from "/components/Card/Card.tsx"; // plasmic-import: eSaP_wpvN1LT/codeComponent
 import { SimpleChart } from "@plasmicpkgs/react-chartjs-2";
 import { Fetcher } from "@plasmicapp/react-web/lib/data-sources";
 
@@ -99,7 +99,7 @@ import MailboxDuotonesvgIcon from "../inprodi_design_system/icons/PlasmicIcon__M
 import CheckCircleDuotonesvgIcon from "../inprodi_design_system/icons/PlasmicIcon__CheckCircleDuotonesvg"; // plasmic-import: W6oixRWCrp9h/icon
 import MoneyWavyDuotonesvgIcon from "../inprodi_design_system/icons/PlasmicIcon__MoneyWavyDuotonesvg"; // plasmic-import: BKdwVE9CoTra/icon
 
-import { showNotification as __fn_showNotification } from "../../../helpers/showNotification"; // plasmic-import: showNotification/customFunction
+import { showNotification as __fn_showNotification } from "~/helpers/showNotification"; // plasmic-import: showNotification/customFunction
 
 createPlasmicElementProxy;
 
@@ -2272,15 +2272,21 @@ function PlasmicDashboard__RenderFunc(props: {
                             data={[
                               {
                                 contract: "MLS",
-                                Propiedades: 0
+                                Propiedades:
+                                  $queries.getStats.data?.response
+                                    ?.mls_properties || 0
                               },
                               {
                                 contract: "Cartas",
-                                Propiedades: 0
+                                Propiedades:
+                                  $queries.getStats.data?.response
+                                    ?.letters_properties || 0
                               },
                               {
                                 contract: "Llamadas",
-                                Propiedades: 0
+                                Propiedades:
+                                  $queries.getStats.data?.response
+                                    ?.calls_properties || 0
                               }
                             ]}
                             stacked={false}
@@ -2309,11 +2315,15 @@ function PlasmicDashboard__RenderFunc(props: {
                             data={[
                               {
                                 type: "Cartas",
-                                Inversión: 0
+                                Inversión:
+                                  $queries.getStats.data?.response
+                                    ?.letters_investment || 0
                               },
                               {
                                 type: "Llamadas",
-                                Inversión: 0
+                                Inversión:
+                                  $queries.getStats.data?.response
+                                    ?.calls_investment || 0
                               }
                             ]}
                             direction={"horizontal"}
@@ -2342,16 +2352,38 @@ function PlasmicDashboard__RenderFunc(props: {
                               "__wab_instance",
                               sty.chart___5HJcb
                             )}
-                            data={[
-                              {
-                                type: "Cartas",
-                                Costo: 0
-                              },
-                              {
-                                type: "Llamadas",
-                                Costo: 0
-                              }
-                            ]}
+                            data={(() => {
+                              const lettersInvestment =
+                                $queries.getStats.data?.response
+                                  ?.letters_investment || 0;
+                              const lettersMade =
+                                $queries.getStats.data?.response
+                                  ?.letters_made || 0;
+                              const callsInvestment =
+                                $queries.getStats.data?.response
+                                  ?.calls_investment || 0;
+                              const callsMade =
+                                $queries.getStats.data?.response?.calls_made ||
+                                0;
+                              return [
+                                {
+                                  type: "Cartas",
+                                  Costo:
+                                    lettersMade === 0
+                                      ? 0
+                                      : (
+                                          lettersInvestment / lettersMade
+                                        ).toFixed(2)
+                                },
+                                {
+                                  type: "Llamadas",
+                                  Costo:
+                                    callsMade === 0
+                                      ? 0
+                                      : (callsInvestment / callsMade).toFixed(2)
+                                }
+                              ];
+                            })()}
                           />
                         }
                         description={
@@ -2365,6 +2397,104 @@ function PlasmicDashboard__RenderFunc(props: {
                         width={"100%"}
                       />
                     </div>
+                    <Stack__
+                      as={"div"}
+                      hasGap={true}
+                      className={classNames(projectcss.all, sty.freeBox__zpjY5)}
+                    >
+                      <Card
+                        className={classNames(
+                          "__wab_instance",
+                          sty.card___3VUd1
+                        )}
+                        content={
+                          <SimpleChart
+                            className={classNames(
+                              "__wab_instance",
+                              sty.chart__ukpLq
+                            )}
+                            data={[
+                              {
+                                contract: "MLS",
+                                Ofertas:
+                                  $queries.getStats.data?.response
+                                    ?.mls_offers_made || 0
+                              },
+                              {
+                                contract: "Cartas",
+                                Ofertas:
+                                  $queries.getStats.data?.response
+                                    ?.letters_offers_made || 0
+                              },
+                              {
+                                contract: "Llamadas",
+                                Ofertas:
+                                  $queries.getStats.data?.response
+                                    ?.calls_offers_made || 0
+                              }
+                            ]}
+                            direction={"horizontal"}
+                            stacked={false}
+                            type={"bar"}
+                          />
+                        }
+                        description={
+                          "Comparaci\u00f3n de ofertas enviadas por medio de contacto"
+                        }
+                        loading={false}
+                        padding={14}
+                        shadow={"sm"}
+                        showTitle={true}
+                        title={"Ofertas Enviadas"}
+                        width={"100%"}
+                      />
+
+                      <Card
+                        className={classNames(
+                          "__wab_instance",
+                          sty.card__vS9Q0
+                        )}
+                        content={
+                          <SimpleChart
+                            className={classNames(
+                              "__wab_instance",
+                              sty.chart__xj8Sa
+                            )}
+                            data={[
+                              {
+                                contract: "MLS",
+                                Ofertas:
+                                  $queries.getStats.data?.response
+                                    ?.mls_offers_approved || 0
+                              },
+                              {
+                                contract: "Cartas",
+                                Ofertas:
+                                  $queries.getStats.data?.response
+                                    ?.letters_offers_approved || 0
+                              },
+                              {
+                                contract: "Llamadas",
+                                Ofertas:
+                                  $queries.getStats.data?.response
+                                    ?.calls_offers_approved || 0
+                              }
+                            ]}
+                            direction={"horizontal"}
+                            stacked={false}
+                          />
+                        }
+                        description={
+                          "Comparaci\u00f3n de ofertas aceptadas por medio de contacto"
+                        }
+                        loading={false}
+                        padding={14}
+                        shadow={"sm"}
+                        showTitle={true}
+                        title={"Ofertas Aceptadas"}
+                        width={"100%"}
+                      />
+                    </Stack__>
                   </React.Fragment>
                 )}
               </DataCtxReader__>

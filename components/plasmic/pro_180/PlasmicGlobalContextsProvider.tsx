@@ -128,7 +128,7 @@ export default function GlobalContextsProvider(
       }
     >
       <AuthGlobalContext {...authGlobalContextProps}>
-          {children}
+        {children}
       </AuthGlobalContext>
     </AntdConfigProvider>
   );
