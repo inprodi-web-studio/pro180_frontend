@@ -28,6 +28,7 @@ import { validatePone, validatePoneConfig }         from "@/helpers/validatePhon
 import { validateEmail, validateEmailConfig }       from "@/helpers/validateEmail";
 import { showNotification, showNotificationConfig } from "@/helpers/showNotification";
 import { validatePassword, validatePasswordConfig } from "@/helpers/validatePassword";
+import { AppGlobalContext } from "@/components/AppGlobalContext";
 
 // Components
 registerComponent( Card, CardConfig );
@@ -52,6 +53,29 @@ registerFunction( validatePassword, validatePasswordConfig );
 registerGlobalContext( AuthGlobalContext, {
   name         : "AuthGlobalContext",
   importPath   : "./components/AuthGlobalContext",
+  props        : {},
+  providesData : true,
+  globalActions : {
+    login : {
+      parameters : [
+        { name : "token", type : "string" },
+        { name : "user", type : "object" },
+      ],
+    },
+    update : {
+      parameters : [
+        { name : "user", type : "object" },
+      ],
+    },
+    logout : {
+      parameters : [],
+    },
+  },
+});
+
+registerGlobalContext( AppGlobalContext, {
+  name         : "AppGlobalContext",
+  importPath   : "./components/AppGlobalContext",
   props        : {},
   providesData : true,
   globalActions : {

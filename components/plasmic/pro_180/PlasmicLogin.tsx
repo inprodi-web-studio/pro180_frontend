@@ -82,8 +82,8 @@ import plasmic_inprodi_design_system_css from "../inprodi_design_system/plasmic.
 import projectcss from "./plasmic.module.css"; // plasmic-import: okr6zFws8g9BFEw4Fons9x/projectcss
 import sty from "./PlasmicLogin.module.css"; // plasmic-import: YiC5r609TqU0/css
 
-import { validateEmail as __fn_validateEmail } from "~/helpers/validateEmail"; // plasmic-import: validateEmail/customFunction
-import { showNotification as __fn_showNotification } from "~/helpers/showNotification"; // plasmic-import: showNotification/customFunction
+import { validateEmail as __fn_validateEmail } from "../../../helpers/validateEmail"; // plasmic-import: validateEmail/customFunction
+import { showNotification as __fn_showNotification } from "../../../helpers/showNotification"; // plasmic-import: showNotification/customFunction
 
 createPlasmicElementProxy;
 

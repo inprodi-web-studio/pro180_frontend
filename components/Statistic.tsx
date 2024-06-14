@@ -37,6 +37,7 @@ function Statistic(props: StatisticProps) {
   // By default, we are just piping all StatisticProps here, but feel free
   // to do whatever works for you.
 
+  // @ts-ignore
   return <PlasmicStatistic {...props} />;
 }
 

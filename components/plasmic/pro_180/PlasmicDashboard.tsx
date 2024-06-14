@@ -99,7 +99,7 @@ import MailboxDuotonesvgIcon from "../inprodi_design_system/icons/PlasmicIcon__M
 import CheckCircleDuotonesvgIcon from "../inprodi_design_system/icons/PlasmicIcon__CheckCircleDuotonesvg"; // plasmic-import: W6oixRWCrp9h/icon
 import MoneyWavyDuotonesvgIcon from "../inprodi_design_system/icons/PlasmicIcon__MoneyWavyDuotonesvg"; // plasmic-import: BKdwVE9CoTra/icon
 
-import { showNotification as __fn_showNotification } from "~/helpers/showNotification"; // plasmic-import: showNotification/customFunction
+import { showNotification as __fn_showNotification } from "../../../helpers/showNotification"; // plasmic-import: showNotification/customFunction
 
 createPlasmicElementProxy;
 
@@ -423,10 +423,18 @@ function PlasmicDashboard__RenderFunc(props: {
         path: "query",
         type: "private",
         variableType: "object",
-        initFunc: ({ $props, $state, $queries, $ctx }) => ({ register: false })
+        initFunc: ({ $props, $state, $queries, $ctx }) => ({
+          register: false,
+          password: false
+        })
+      },
+      {
+        path: "appShell.passwordLoading",
+        type: "private",
+        variableType: "boolean",
+        initFunc: ({ $props, $state, $queries, $ctx }) => false
       }
     ],
-
     [$props, $ctx, $refs]
   );
   const $state = useDollarState(stateSpecs, {
@@ -2301,7 +2309,7 @@ function PlasmicDashboard__RenderFunc(props: {
                         padding={14}
                         shadow={"sm"}
                         showTitle={true}
-                        title={"Tipo de Contrato"}
+                        title={"Propiedades bajo Contrato"}
                         width={"100%"}
                       />
 
@@ -2327,7 +2335,7 @@ function PlasmicDashboard__RenderFunc(props: {
                                     ?.calls_investment || 0
                               }
                             ]}
-                            direction={"horizontal"}
+                            direction={"vertical"}
                             type={"bar"}
                           />
                         }
@@ -2434,7 +2442,7 @@ function PlasmicDashboard__RenderFunc(props: {
                                     ?.calls_offers_made || 0
                               }
                             ]}
-                            direction={"horizontal"}
+                            direction={"vertical"}
                             stacked={false}
                             type={"bar"}
                           />
@@ -2481,7 +2489,8 @@ function PlasmicDashboard__RenderFunc(props: {
                                     ?.calls_offers_approved || 0
                               }
                             ]}
-                            direction={"horizontal"}
+                            direction={"vertical"}
+                            interactive={true}
                             stacked={false}
                           />
                         }
@@ -2500,6 +2509,14 @@ function PlasmicDashboard__RenderFunc(props: {
                 )}
               </DataCtxReader__>
             }
+            onPasswordLoadingChange={generateStateOnChangeProp($state, [
+              "appShell",
+              "passwordLoading"
+            ])}
+            passwordLoading={generateStateValueProp($state, [
+              "appShell",
+              "passwordLoading"
+            ])}
           />
         </div>
       </div>
@@ -2558,7 +2575,6 @@ const PlasmicDescendants = {
     "icon8",
     "charts"
   ],
-
   appShell: [
     "appShell",
     "container",
@@ -2608,7 +2624,6 @@ const PlasmicDescendants = {
     "icon8",
     "charts"
   ],
-
   container: [
     "container",
     "registerModal",
@@ -2647,7 +2662,6 @@ const PlasmicDescendants = {
     "dealsInput",
     "container2"
   ],
-
   registerModal: [
     "registerModal",
     "statForm",
@@ -2685,7 +2699,6 @@ const PlasmicDescendants = {
     "dealsInput",
     "container2"
   ],
-
   statForm: [
     "statForm",
     "callsMade",
@@ -2721,7 +2734,6 @@ const PlasmicDescendants = {
     "deals",
     "dealsInput"
   ],
-
   callsMade: ["callsMade", "callsMadeInput"],
   callsMadeInput: ["callsMadeInput"],
   callsAnswered: ["callsAnswered", "callsAnsweredInput"],
@@ -2752,7 +2764,6 @@ const PlasmicDescendants = {
     "offersApprovedLetters",
     "offersApprovedLettersInput"
   ],
-
   offersApprovedLettersInput: ["offersApprovedLettersInput"],
   offersApprovedCalls: ["offersApprovedCalls", "offersApprovedCallsInput"],
   offersApprovedCallsInput: ["offersApprovedCallsInput"],
@@ -2770,7 +2781,6 @@ const PlasmicDescendants = {
     "icon5",
     "icon8"
   ],
-
   icon: ["icon"],
   icon2: ["icon2"],
   icon3: ["icon3"],
@@ -2840,7 +2850,6 @@ type NodeOverridesType<T extends NodeNameType> = Pick<
   PlasmicDashboard__OverridesType,
   DescendantsType<T>
 >;
-
 type NodeComponentProps<T extends NodeNameType> =
   // Explicitly specify variants, args, and overrides as objects
   {

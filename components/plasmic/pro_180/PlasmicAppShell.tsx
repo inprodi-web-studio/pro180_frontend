@@ -59,6 +59,18 @@ import {
   useGlobalActions
 } from "@plasmicapp/react-web/lib/host";
 
+import { usePlasmicDataSourceContext } from "@plasmicapp/data-sources-context";
+import {
+  executePlasmicDataOp,
+  usePlasmicDataOp,
+  usePlasmicInvalidate
+} from "@plasmicapp/react-web/lib/data-sources";
+
+import { AntdModal } from "@plasmicpkgs/antd5/skinny/registerModal";
+import Form from "../../Form"; // plasmic-import: rb5_PS-3AnYe/component
+import FormField from "../../FormField"; // plasmic-import: yLHiIXcGvJuv/component
+import PasswordInput from "/components/PasswordInput/PasswordInput.tsx"; // plasmic-import: QqMpCHKA1X8a/codeComponent
+import { AntdButton } from "@plasmicpkgs/antd5/skinny/registerButton";
 import Button from "/components/Button/Button.tsx"; // plasmic-import: fWdCiIO3iYJP/codeComponent
 import { LoadingBoundary } from "@plasmicpkgs/plasmic-basic-components";
 import { LottieWrapper } from "@plasmicpkgs/lottie-react";
@@ -85,16 +97,28 @@ export const PlasmicAppShell__VariantProps = new Array<VariantPropType>();
 
 export type PlasmicAppShell__ArgsType = {
   content2?: React.ReactNode;
+  passwordLoading?: boolean;
+  onPasswordLoadingChange?: (val: string) => void;
 };
 type ArgPropType = keyof PlasmicAppShell__ArgsType;
-export const PlasmicAppShell__ArgProps = new Array<ArgPropType>("content2");
+export const PlasmicAppShell__ArgProps = new Array<ArgPropType>(
+  "content2",
+  "passwordLoading",
+  "onPasswordLoadingChange"
+);
 
 export type PlasmicAppShell__OverridesType = {
   mainContainer?: Flex__<"div">;
   topBar?: Flex__<"div">;
   left?: Flex__<"div">;
   logotype?: Flex__<typeof PlasmicImg__>;
-  button?: Flex__<typeof Button>;
+  freeBox?: Flex__<"div">;
+  modal?: Flex__<typeof AntdModal>;
+  form?: Flex__<typeof Form>;
+  formField?: Flex__<typeof FormField>;
+  current?: Flex__<typeof PasswordInput>;
+  formField3?: Flex__<typeof FormField>;
+  newPass?: Flex__<typeof PasswordInput>;
   content?: Flex__<"div">;
   loadingBoundary?: Flex__<typeof LoadingBoundary>;
   lottie?: Flex__<typeof LottieWrapper>;
@@ -102,6 +126,8 @@ export type PlasmicAppShell__OverridesType = {
 
 export interface DefaultAppShellProps {
   content2?: React.ReactNode;
+  passwordLoading?: boolean;
+  onPasswordLoadingChange?: (val: string) => void;
   className?: string;
 }
 
@@ -137,6 +163,76 @@ function PlasmicAppShell__RenderFunc(props: {
   const $globalActions = useGlobalActions?.();
 
   const currentUser = useCurrentUser?.() || {};
+
+  const stateSpecs: Parameters<typeof useDollarState>[0] = React.useMemo(
+    () => [
+      {
+        path: "modal.open",
+        type: "private",
+        variableType: "boolean",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "form.values",
+        type: "private",
+        variableType: "object",
+        initFunc: ({ $props, $state, $queries, $ctx }) => ({})
+      },
+      {
+        path: "form.errors",
+        type: "private",
+        variableType: "object",
+        initFunc: ({ $props, $state, $queries, $ctx }) => ({})
+      },
+      {
+        path: "form.validation",
+        type: "private",
+        variableType: "object",
+        initFunc: ({ $props, $state, $queries, $ctx }) => ({})
+      },
+      {
+        path: "formField.error",
+        type: "private",
+        variableType: "text",
+        initFunc: ({ $props, $state, $queries, $ctx }) => ""
+      },
+      {
+        path: "current.value",
+        type: "private",
+        variableType: "text",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "formField3.error",
+        type: "private",
+        variableType: "text",
+        initFunc: ({ $props, $state, $queries, $ctx }) => ""
+      },
+      {
+        path: "newPass.value",
+        type: "private",
+        variableType: "text",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
+      },
+      {
+        path: "passwordLoading",
+        type: "writable",
+        variableType: "boolean",
+
+        valueProp: "passwordLoading",
+        onChangeProp: "onPasswordLoadingChange"
+      }
+    ],
+    [$props, $ctx, $refs]
+  );
+  const $state = useDollarState(stateSpecs, {
+    $props,
+    $ctx,
+    $queries: {},
+    $refs
+  });
+  const dataSourcesCtx = usePlasmicDataSourceContext();
+  const plasmicInvalidate = usePlasmicInvalidate();
 
   const globalVariants = ensureGlobalVariants({
     colorScheme: useColorScheme()
@@ -197,66 +293,431 @@ function PlasmicAppShell__RenderFunc(props: {
             }}
           />
         </div>
-        <Button
-          data-plasmic-name={"button"}
-          data-plasmic-override={overrides.button}
-          block={false}
-          className={classNames("__wab_instance", sty.button)}
-          danger={true}
-          ghost={true}
-          iconPosition={"start"}
-          isSubmit={false}
-          label={"Cerrar Sesi\u00f3n"}
-          loading={false}
-          onClick={async () => {
-            const $steps = {};
-
-            $steps["logout"] = true
-              ? (() => {
-                  const actionArgs = { args: [] };
-                  return $globalActions["AuthGlobalContext.logout"]?.apply(
-                    null,
-                    [...actionArgs.args]
-                  );
-                })()
-              : undefined;
-            if (
-              $steps["logout"] != null &&
-              typeof $steps["logout"] === "object" &&
-              typeof $steps["logout"].then === "function"
-            ) {
-              $steps["logout"] = await $steps["logout"];
-            }
-
-            $steps["navigate"] = true
-              ? (() => {
-                  const actionArgs = { destination: `/auth/login` };
-                  return (({ destination }) => {
+        <Stack__
+          as={"div"}
+          data-plasmic-name={"freeBox"}
+          data-plasmic-override={overrides.freeBox}
+          hasGap={true}
+          className={classNames(projectcss.all, sty.freeBox)}
+        >
+          <AntdModal
+            data-plasmic-name={"modal"}
+            data-plasmic-override={overrides.modal}
+            className={classNames("__wab_instance", sty.modal)}
+            defaultStylesClassName={classNames(
+              projectcss.root_reset,
+              projectcss.plasmic_default_styles,
+              projectcss.plasmic_mixins,
+              projectcss.plasmic_tokens,
+              plasmic_antd_5_hostless_css.plasmic_tokens,
+              plasmic_plasmic_rich_components_css.plasmic_tokens,
+              plasmic_inprodi_design_system_css.plasmic_tokens
+            )}
+            footer={
+              <Button
+                block={true}
+                className={classNames("__wab_instance", sty.button__urDeM)}
+                danger={false}
+                ghost={false}
+                iconPosition={"start"}
+                isSubmit={false}
+                label={"Guardar Cambios"}
+                loading={(() => {
+                  try {
+                    return $state.passwordLoading;
+                  } catch (e) {
                     if (
-                      typeof destination === "string" &&
-                      destination.startsWith("#")
+                      e instanceof TypeError ||
+                      e?.plasmicType === "PlasmicUndefinedDataError"
                     ) {
-                      document
-                        .getElementById(destination.substr(1))
-                        .scrollIntoView({ behavior: "smooth" });
-                    } else {
-                      __nextRouter?.push(destination);
+                      return false;
                     }
-                  })?.apply(null, [actionArgs]);
-                })()
-              : undefined;
-            if (
-              $steps["navigate"] != null &&
-              typeof $steps["navigate"] === "object" &&
-              typeof $steps["navigate"].then === "function"
-            ) {
-              $steps["navigate"] = await $steps["navigate"];
+                    throw e;
+                  }
+                })()}
+                onClick={async () => {
+                  const $steps = {};
+
+                  $steps["setLoading"] = true
+                    ? (() => {
+                        const actionArgs = {
+                          variable: {
+                            objRoot: $state,
+                            variablePath: ["passwordLoading"]
+                          },
+                          operation: 0,
+                          value: true
+                        };
+                        return (({
+                          variable,
+                          value,
+                          startIndex,
+                          deleteCount
+                        }) => {
+                          if (!variable) {
+                            return;
+                          }
+                          const { objRoot, variablePath } = variable;
+
+                          $stateSet(objRoot, variablePath, value);
+                          return value;
+                        })?.apply(null, [actionArgs]);
+                      })()
+                    : undefined;
+                  if (
+                    $steps["setLoading"] != null &&
+                    typeof $steps["setLoading"] === "object" &&
+                    typeof $steps["setLoading"].then === "function"
+                  ) {
+                    $steps["setLoading"] = await $steps["setLoading"];
+                  }
+
+                  $steps["patchRequest"] = true
+                    ? (() => {
+                        const actionArgs = {
+                          dataOp: {
+                            sourceId: "9SbcJmsXuR3ob6ZWwKJZY9",
+                            opId: "212fae76-8a53-4688-bfb2-963c0554e42d",
+                            userArgs: {
+                              params: [
+                                $state.current.value,
+                                $state.newPass.value
+                              ],
+                              headers: [`Bearer ${$ctx.token}`]
+                            },
+                            cacheKey: null,
+                            invalidatedKeys: null,
+                            roleId: null
+                          }
+                        };
+                        return (async ({ dataOp, continueOnError }) => {
+                          try {
+                            const response = await executePlasmicDataOp(
+                              dataOp,
+                              {
+                                userAuthToken: dataSourcesCtx?.userAuthToken,
+                                user: dataSourcesCtx?.user
+                              }
+                            );
+                            await plasmicInvalidate(dataOp.invalidatedKeys);
+                            return response;
+                          } catch (e) {
+                            if (!continueOnError) {
+                              throw e;
+                            }
+                            return e;
+                          }
+                        })?.apply(null, [actionArgs]);
+                      })()
+                    : undefined;
+                  if (
+                    $steps["patchRequest"] != null &&
+                    typeof $steps["patchRequest"] === "object" &&
+                    typeof $steps["patchRequest"].then === "function"
+                  ) {
+                    $steps["patchRequest"] = await $steps["patchRequest"];
+                  }
+
+                  $steps["offLoading"] = true
+                    ? (() => {
+                        const actionArgs = {
+                          variable: {
+                            objRoot: $state,
+                            variablePath: ["passwordLoading"]
+                          },
+                          operation: 0,
+                          value: false
+                        };
+                        return (({
+                          variable,
+                          value,
+                          startIndex,
+                          deleteCount
+                        }) => {
+                          if (!variable) {
+                            return;
+                          }
+                          const { objRoot, variablePath } = variable;
+
+                          $stateSet(objRoot, variablePath, value);
+                          return value;
+                        })?.apply(null, [actionArgs]);
+                      })()
+                    : undefined;
+                  if (
+                    $steps["offLoading"] != null &&
+                    typeof $steps["offLoading"] === "object" &&
+                    typeof $steps["offLoading"].then === "function"
+                  ) {
+                    $steps["offLoading"] = await $steps["offLoading"];
+                  }
+
+                  $steps["closeModal"] = true
+                    ? (() => {
+                        const actionArgs = {
+                          variable: {
+                            objRoot: $state,
+                            variablePath: ["modal", "open"]
+                          },
+                          operation: 4
+                        };
+                        return (({
+                          variable,
+                          value,
+                          startIndex,
+                          deleteCount
+                        }) => {
+                          if (!variable) {
+                            return;
+                          }
+                          const { objRoot, variablePath } = variable;
+
+                          const oldValue = $stateGet(objRoot, variablePath);
+                          $stateSet(objRoot, variablePath, !oldValue);
+                          return !oldValue;
+                        })?.apply(null, [actionArgs]);
+                      })()
+                    : undefined;
+                  if (
+                    $steps["closeModal"] != null &&
+                    typeof $steps["closeModal"] === "object" &&
+                    typeof $steps["closeModal"].then === "function"
+                  ) {
+                    $steps["closeModal"] = await $steps["closeModal"];
+                  }
+                }}
+                size={"middle"}
+                variant={"primary"}
+                withIcon={false}
+              />
             }
-          }}
-          size={"middle"}
-          variant={"primary"}
-          withIcon={false}
-        />
+            modalScopeClassName={sty["modal__modal"]}
+            onOpenChange={generateStateOnChangeProp($state, ["modal", "open"])}
+            open={generateStateValueProp($state, ["modal", "open"])}
+            title={"Cambiar Contrase\u00f1a"}
+            trigger={
+              <AntdButton
+                className={classNames("__wab_instance", sty.button__yT50X)}
+                type={"primary"}
+              >
+                <div
+                  className={classNames(
+                    projectcss.all,
+                    projectcss.__wab_text,
+                    sty.text___0FyGo
+                  )}
+                >
+                  {"Cambiar Contrase\u00f1a"}
+                </div>
+              </AntdButton>
+            }
+          >
+            <Form
+              data-plasmic-name={"form"}
+              data-plasmic-override={overrides.form}
+              className={classNames("__wab_instance", sty.form)}
+              content={
+                <React.Fragment>
+                  <FormField
+                    data-plasmic-name={"formField"}
+                    data-plasmic-override={overrides.formField}
+                    className={classNames("__wab_instance", sty.formField)}
+                    error={generateStateValueProp($state, [
+                      "formField",
+                      "error"
+                    ])}
+                    input={
+                      <PasswordInput
+                        data-plasmic-name={"current"}
+                        data-plasmic-override={overrides.current}
+                        allowClear={false}
+                        className={classNames("__wab_instance", sty.current)}
+                        defaultValue={""}
+                        disabled={false}
+                        leftIcon={
+                          <div
+                            className={classNames(
+                              projectcss.all,
+                              projectcss.__wab_text,
+                              sty.text__btJmg
+                            )}
+                          >
+                            {"Drop Icon"}
+                          </div>
+                        }
+                        onChange={generateStateOnChangeProp($state, [
+                          "current",
+                          "value"
+                        ])}
+                        placeholder={"••••••••••••"}
+                        rightIcon={
+                          <div
+                            className={classNames(
+                              projectcss.all,
+                              projectcss.__wab_text,
+                              sty.text__pMr5N
+                            )}
+                          >
+                            {"Drop Icon"}
+                          </div>
+                        }
+                        showLeftIcon={false}
+                        showRightIcon={false}
+                        size={"middle"}
+                        value={generateStateValueProp($state, [
+                          "current",
+                          "value"
+                        ])}
+                        variant={"outlined"}
+                      />
+                    }
+                    label2={"Contrase\u00f1a Actual"}
+                    onErrorChange={generateStateOnChangeProp($state, [
+                      "formField",
+                      "error"
+                    ])}
+                  />
+
+                  <FormField
+                    data-plasmic-name={"formField3"}
+                    data-plasmic-override={overrides.formField3}
+                    className={classNames("__wab_instance", sty.formField3)}
+                    error={generateStateValueProp($state, [
+                      "formField3",
+                      "error"
+                    ])}
+                    input={
+                      <PasswordInput
+                        data-plasmic-name={"newPass"}
+                        data-plasmic-override={overrides.newPass}
+                        allowClear={false}
+                        className={classNames("__wab_instance", sty.newPass)}
+                        defaultValue={""}
+                        disabled={false}
+                        leftIcon={
+                          <div
+                            className={classNames(
+                              projectcss.all,
+                              projectcss.__wab_text,
+                              sty.text__bsGda
+                            )}
+                          >
+                            {"Drop Icon"}
+                          </div>
+                        }
+                        onChange={generateStateOnChangeProp($state, [
+                          "newPass",
+                          "value"
+                        ])}
+                        placeholder={"••••••••••••"}
+                        rightIcon={
+                          <div
+                            className={classNames(
+                              projectcss.all,
+                              projectcss.__wab_text,
+                              sty.text__aVuj5
+                            )}
+                          >
+                            {"Drop Icon"}
+                          </div>
+                        }
+                        showLeftIcon={false}
+                        showRightIcon={false}
+                        size={"middle"}
+                        value={generateStateValueProp($state, [
+                          "newPass",
+                          "value"
+                        ])}
+                        variant={"outlined"}
+                      />
+                    }
+                    label2={"Nueva Contrase\u00f1a"}
+                    onErrorChange={generateStateOnChangeProp($state, [
+                      "formField3",
+                      "error"
+                    ])}
+                  />
+                </React.Fragment>
+              }
+              errors={generateStateValueProp($state, ["form", "errors"])}
+              onErrorsChange={generateStateOnChangeProp($state, [
+                "form",
+                "errors"
+              ])}
+              onValidationChange={generateStateOnChangeProp($state, [
+                "form",
+                "validation"
+              ])}
+              onValuesChange={generateStateOnChangeProp($state, [
+                "form",
+                "values"
+              ])}
+              validation={generateStateValueProp($state, [
+                "form",
+                "validation"
+              ])}
+              values={generateStateValueProp($state, ["form", "values"])}
+            />
+          </AntdModal>
+          <Button
+            block={false}
+            className={classNames("__wab_instance", sty.button__yw4P)}
+            danger={true}
+            ghost={true}
+            iconPosition={"start"}
+            isSubmit={false}
+            label={"Cerrar Sesi\u00f3n"}
+            loading={false}
+            onClick={async () => {
+              const $steps = {};
+
+              $steps["logout"] = true
+                ? (() => {
+                    const actionArgs = { args: [] };
+                    return $globalActions["AuthGlobalContext.logout"]?.apply(
+                      null,
+                      [...actionArgs.args]
+                    );
+                  })()
+                : undefined;
+              if (
+                $steps["logout"] != null &&
+                typeof $steps["logout"] === "object" &&
+                typeof $steps["logout"].then === "function"
+              ) {
+                $steps["logout"] = await $steps["logout"];
+              }
+
+              $steps["navigate"] = true
+                ? (() => {
+                    const actionArgs = { destination: `/auth/login` };
+                    return (({ destination }) => {
+                      if (
+                        typeof destination === "string" &&
+                        destination.startsWith("#")
+                      ) {
+                        document
+                          .getElementById(destination.substr(1))
+                          .scrollIntoView({ behavior: "smooth" });
+                      } else {
+                        __nextRouter?.push(destination);
+                      }
+                    })?.apply(null, [actionArgs]);
+                  })()
+                : undefined;
+              if (
+                $steps["navigate"] != null &&
+                typeof $steps["navigate"] === "object" &&
+                typeof $steps["navigate"].then === "function"
+              ) {
+                $steps["navigate"] = await $steps["navigate"];
+              }
+            }}
+            size={"middle"}
+            variant={"primary"}
+            withIcon={false}
+          />
+        </Stack__>
       </div>
       <div
         data-plasmic-name={"content"}
@@ -351,7 +812,6 @@ function PlasmicAppShell__RenderFunc(props: {
                                 sa: { a: 0, k: 0 }
                               }
                             ],
-
                             nm: "Object",
                             hd: false
                           }
@@ -425,7 +885,6 @@ function PlasmicAppShell__RenderFunc(props: {
                                 sa: { a: 0, k: 0 }
                               }
                             ],
-
                             nm: "Object",
                             hd: false
                           }
@@ -499,14 +958,12 @@ function PlasmicAppShell__RenderFunc(props: {
                                 sa: { a: 0, k: 0 }
                               }
                             ],
-
                             nm: "Object",
                             hd: false
                           }
                         ]
                       }
                     ],
-
                     markers: []
                   }}
                   className={classNames("__wab_instance", sty.lottie)}
@@ -536,16 +993,46 @@ const PlasmicDescendants = {
     "topBar",
     "left",
     "logotype",
-    "button",
+    "freeBox",
+    "modal",
+    "form",
+    "formField",
+    "current",
+    "formField3",
+    "newPass",
     "content",
     "loadingBoundary",
     "lottie"
   ],
-
-  topBar: ["topBar", "left", "logotype", "button"],
+  topBar: [
+    "topBar",
+    "left",
+    "logotype",
+    "freeBox",
+    "modal",
+    "form",
+    "formField",
+    "current",
+    "formField3",
+    "newPass"
+  ],
   left: ["left", "logotype"],
   logotype: ["logotype"],
-  button: ["button"],
+  freeBox: [
+    "freeBox",
+    "modal",
+    "form",
+    "formField",
+    "current",
+    "formField3",
+    "newPass"
+  ],
+  modal: ["modal", "form", "formField", "current", "formField3", "newPass"],
+  form: ["form", "formField", "current", "formField3", "newPass"],
+  formField: ["formField", "current"],
+  current: ["current"],
+  formField3: ["formField3", "newPass"],
+  newPass: ["newPass"],
   content: ["content", "loadingBoundary", "lottie"],
   loadingBoundary: ["loadingBoundary", "lottie"],
   lottie: ["lottie"]
@@ -558,7 +1045,13 @@ type NodeDefaultElementType = {
   topBar: "div";
   left: "div";
   logotype: typeof PlasmicImg__;
-  button: typeof Button;
+  freeBox: "div";
+  modal: typeof AntdModal;
+  form: typeof Form;
+  formField: typeof FormField;
+  current: typeof PasswordInput;
+  formField3: typeof FormField;
+  newPass: typeof PasswordInput;
   content: "div";
   loadingBoundary: typeof LoadingBoundary;
   lottie: typeof LottieWrapper;
@@ -569,7 +1062,6 @@ type NodeOverridesType<T extends NodeNameType> = Pick<
   PlasmicAppShell__OverridesType,
   DescendantsType<T>
 >;
-
 type NodeComponentProps<T extends NodeNameType> =
   // Explicitly specify variants, args, and overrides as objects
   {
@@ -628,7 +1120,13 @@ export const PlasmicAppShell = Object.assign(
     topBar: makeNodeComponent("topBar"),
     left: makeNodeComponent("left"),
     logotype: makeNodeComponent("logotype"),
-    button: makeNodeComponent("button"),
+    freeBox: makeNodeComponent("freeBox"),
+    modal: makeNodeComponent("modal"),
+    form: makeNodeComponent("form"),
+    formField: makeNodeComponent("formField"),
+    current: makeNodeComponent("current"),
+    formField3: makeNodeComponent("formField3"),
+    newPass: makeNodeComponent("newPass"),
     content: makeNodeComponent("content"),
     loadingBoundary: makeNodeComponent("loadingBoundary"),
     lottie: makeNodeComponent("lottie"),
