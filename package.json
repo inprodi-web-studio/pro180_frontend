@@ -31,9 +31,7 @@
     "react-countup": "^6.5.3",
     "react-dom": "^18",
     "react-input-mask": "^2.0.4",
-    "sonner": "^1.4.41"
-  },
-  "devDependencies": {
+    "sonner": "^1.4.41",
     "@types/node": "^20.14.2",
     "@types/react": "^18",
     "@types/react-dom": "^18",
