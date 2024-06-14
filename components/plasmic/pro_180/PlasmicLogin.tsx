@@ -66,13 +66,13 @@ import {
   usePlasmicInvalidate
 } from "@plasmicapp/react-web/lib/data-sources";
 
-import Card from "../../Card/Card"; // plasmic-import: eSaP_wpvN1LT/codeComponent
+import Card from "/components/Card/Card.tsx"; // plasmic-import: eSaP_wpvN1LT/codeComponent
 import TitleText from "../../TitleText"; // plasmic-import: NxJEJ3yCzHgk/component
 import Form from "../../Form"; // plasmic-import: rb5_PS-3AnYe/component
 import FormField from "../../FormField"; // plasmic-import: yLHiIXcGvJuv/component
-import TextInput from "../../TextInput/TextInput.tsx"; // plasmic-import: Z13Cbt3lzIov/codeComponent
-import PasswordInput from "../../PasswordInput/PasswordInput.tsx"; // plasmic-import: QqMpCHKA1X8a/codeComponent
-import Button from "../../Button/Button.tsx"; // plasmic-import: fWdCiIO3iYJP/codeComponent
+import TextInput from "/components/TextInput/TextInput.tsx"; // plasmic-import: Z13Cbt3lzIov/codeComponent
+import PasswordInput from "/components/PasswordInput/PasswordInput.tsx"; // plasmic-import: QqMpCHKA1X8a/codeComponent
+import Button from "/components/Button/Button.tsx"; // plasmic-import: fWdCiIO3iYJP/codeComponent
 
 import "@plasmicapp/react-web/lib/plasmic.css";
 
@@ -82,8 +82,8 @@ import plasmic_inprodi_design_system_css from "../inprodi_design_system/plasmic.
 import projectcss from "./plasmic.module.css"; // plasmic-import: okr6zFws8g9BFEw4Fons9x/projectcss
 import sty from "./PlasmicLogin.module.css"; // plasmic-import: YiC5r609TqU0/css
 
-import { validateEmail as __fn_validateEmail } from "../../../helpers/validateEmail"; // plasmic-import: validateEmail/customFunction
-import { showNotification as __fn_showNotification } from "../../../helpers/showNotification"; // plasmic-import: showNotification/customFunction
+import { validateEmail as __fn_validateEmail } from "~/helpers/validateEmail"; // plasmic-import: validateEmail/customFunction
+import { showNotification as __fn_showNotification } from "~/helpers/showNotification"; // plasmic-import: showNotification/customFunction
 
 createPlasmicElementProxy;
 
@@ -228,6 +228,7 @@ function PlasmicLogin__RenderFunc(props: {
         initFunc: ({ $props, $state, $queries, $ctx }) => ({ login: false })
       }
     ],
+
     [$props, $ctx, $refs]
   );
   const $state = useDollarState(stateSpecs, {
@@ -249,6 +250,7 @@ function PlasmicLogin__RenderFunc(props: {
           property="og:title"
           content={PlasmicLogin.pageMetadata.title}
         />
+
         <meta
           key="twitter:title"
           name="twitter:title"
@@ -1007,6 +1009,7 @@ const PlasmicDescendants = {
     "passwordInput",
     "button"
   ],
+
   logo: ["logo"],
   card: [
     "card",
@@ -1019,6 +1022,7 @@ const PlasmicDescendants = {
     "passwordInput",
     "button"
   ],
+
   container: [
     "container",
     "titleText",
@@ -1029,6 +1033,7 @@ const PlasmicDescendants = {
     "passwordInput",
     "button"
   ],
+
   titleText: ["titleText"],
   loginForm: [
     "loginForm",
@@ -1038,6 +1043,7 @@ const PlasmicDescendants = {
     "passwordInput",
     "button"
   ],
+
   emailField: ["emailField", "emailInput"],
   emailInput: ["emailInput"],
   passwordField: ["passwordField", "passwordInput"],
@@ -1066,6 +1072,7 @@ type NodeOverridesType<T extends NodeNameType> = Pick<
   PlasmicLogin__OverridesType,
   DescendantsType<T>
 >;
+
 type NodeComponentProps<T extends NodeNameType> =
   // Explicitly specify variants, args, and overrides as objects
   {
@@ -1116,23 +1123,6 @@ function makeNodeComponent<NodeName extends NodeNameType>(nodeName: NodeName) {
   return func;
 }
 
-function withPlasmicPageGuard<P extends object>(
-  WrappedComponent: React.ComponentType<P>
-) {
-  const PageGuard: React.FC<P> = props => (
-    <PlasmicPageGuard__
-      minRole={null}
-      appId={"okr6zFws8g9BFEw4Fons9x"}
-      authorizeEndpoint={"https://studio.plasmic.app/authorize"}
-      canTriggerLogin={true}
-    >
-      <WrappedComponent {...props} />
-    </PlasmicPageGuard__>
-  );
-
-  return PageGuard;
-}
-
 function withUsePlasmicAuth<P extends object>(
   WrappedComponent: React.ComponentType<P>
 ) {
@@ -1160,7 +1150,7 @@ function withUsePlasmicAuth<P extends object>(
 
 export const PlasmicLogin = Object.assign(
   // Top-level PlasmicLogin renders the root element
-  withUsePlasmicAuth(withPlasmicPageGuard(makeNodeComponent("mainSection"))),
+  withUsePlasmicAuth(makeNodeComponent("mainSection")),
   {
     // Helper components rendering sub-elements
     logo: makeNodeComponent("logo"),

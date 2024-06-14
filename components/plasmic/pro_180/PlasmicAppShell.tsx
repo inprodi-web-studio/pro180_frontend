@@ -59,7 +59,7 @@ import {
   useGlobalActions
 } from "@plasmicapp/react-web/lib/host";
 
-import Button from "../../Button/Button"; // plasmic-import: fWdCiIO3iYJP/codeComponent
+import Button from "/components/Button/Button.tsx"; // plasmic-import: fWdCiIO3iYJP/codeComponent
 import { LoadingBoundary } from "@plasmicpkgs/plasmic-basic-components";
 import { LottieWrapper } from "@plasmicpkgs/lottie-react";
 
@@ -351,6 +351,7 @@ function PlasmicAppShell__RenderFunc(props: {
                                 sa: { a: 0, k: 0 }
                               }
                             ],
+
                             nm: "Object",
                             hd: false
                           }
@@ -424,6 +425,7 @@ function PlasmicAppShell__RenderFunc(props: {
                                 sa: { a: 0, k: 0 }
                               }
                             ],
+
                             nm: "Object",
                             hd: false
                           }
@@ -497,12 +499,14 @@ function PlasmicAppShell__RenderFunc(props: {
                                 sa: { a: 0, k: 0 }
                               }
                             ],
+
                             nm: "Object",
                             hd: false
                           }
                         ]
                       }
                     ],
+
                     markers: []
                   }}
                   className={classNames("__wab_instance", sty.lottie)}
@@ -537,6 +541,7 @@ const PlasmicDescendants = {
     "loadingBoundary",
     "lottie"
   ],
+
   topBar: ["topBar", "left", "logotype", "button"],
   left: ["left", "logotype"],
   logotype: ["logotype"],
@@ -564,6 +569,7 @@ type NodeOverridesType<T extends NodeNameType> = Pick<
   PlasmicAppShell__OverridesType,
   DescendantsType<T>
 >;
+
 type NodeComponentProps<T extends NodeNameType> =
   // Explicitly specify variants, args, and overrides as objects
   {

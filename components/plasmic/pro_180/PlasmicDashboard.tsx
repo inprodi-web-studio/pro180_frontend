@@ -99,7 +99,7 @@ import MailboxDuotonesvgIcon from "../inprodi_design_system/icons/PlasmicIcon__M
 import CheckCircleDuotonesvgIcon from "../inprodi_design_system/icons/PlasmicIcon__CheckCircleDuotonesvg"; // plasmic-import: W6oixRWCrp9h/icon
 import MoneyWavyDuotonesvgIcon from "../inprodi_design_system/icons/PlasmicIcon__MoneyWavyDuotonesvg"; // plasmic-import: BKdwVE9CoTra/icon
 
-import { showNotification as __fn_showNotification } from "../../../helpers/showNotification"; // plasmic-import: showNotification/customFunction
+import { showNotification as __fn_showNotification } from "~/helpers/showNotification"; // plasmic-import: showNotification/customFunction
 
 createPlasmicElementProxy;
 
@@ -426,6 +426,7 @@ function PlasmicDashboard__RenderFunc(props: {
         initFunc: ({ $props, $state, $queries, $ctx }) => ({ register: false })
       }
     ],
+
     [$props, $ctx, $refs]
   );
   const $state = useDollarState(stateSpecs, {
@@ -2557,6 +2558,7 @@ const PlasmicDescendants = {
     "icon8",
     "charts"
   ],
+
   appShell: [
     "appShell",
     "container",
@@ -2606,6 +2608,7 @@ const PlasmicDescendants = {
     "icon8",
     "charts"
   ],
+
   container: [
     "container",
     "registerModal",
@@ -2644,6 +2647,7 @@ const PlasmicDescendants = {
     "dealsInput",
     "container2"
   ],
+
   registerModal: [
     "registerModal",
     "statForm",
@@ -2681,6 +2685,7 @@ const PlasmicDescendants = {
     "dealsInput",
     "container2"
   ],
+
   statForm: [
     "statForm",
     "callsMade",
@@ -2716,6 +2721,7 @@ const PlasmicDescendants = {
     "deals",
     "dealsInput"
   ],
+
   callsMade: ["callsMade", "callsMadeInput"],
   callsMadeInput: ["callsMadeInput"],
   callsAnswered: ["callsAnswered", "callsAnsweredInput"],
@@ -2746,6 +2752,7 @@ const PlasmicDescendants = {
     "offersApprovedLetters",
     "offersApprovedLettersInput"
   ],
+
   offersApprovedLettersInput: ["offersApprovedLettersInput"],
   offersApprovedCalls: ["offersApprovedCalls", "offersApprovedCallsInput"],
   offersApprovedCallsInput: ["offersApprovedCallsInput"],
@@ -2763,6 +2770,7 @@ const PlasmicDescendants = {
     "icon5",
     "icon8"
   ],
+
   icon: ["icon"],
   icon2: ["icon2"],
   icon3: ["icon3"],
@@ -2832,6 +2840,7 @@ type NodeOverridesType<T extends NodeNameType> = Pick<
   PlasmicDashboard__OverridesType,
   DescendantsType<T>
 >;
+
 type NodeComponentProps<T extends NodeNameType> =
   // Explicitly specify variants, args, and overrides as objects
   {
@@ -2882,23 +2891,6 @@ function makeNodeComponent<NodeName extends NodeNameType>(nodeName: NodeName) {
   return func;
 }
 
-function withPlasmicPageGuard<P extends object>(
-  WrappedComponent: React.ComponentType<P>
-) {
-  const PageGuard: React.FC<P> = props => (
-    <PlasmicPageGuard__
-      minRole={null}
-      appId={"okr6zFws8g9BFEw4Fons9x"}
-      authorizeEndpoint={"https://studio.plasmic.app/authorize"}
-      canTriggerLogin={true}
-    >
-      <WrappedComponent {...props} />
-    </PlasmicPageGuard__>
-  );
-
-  return PageGuard;
-}
-
 function withUsePlasmicAuth<P extends object>(
   WrappedComponent: React.ComponentType<P>
 ) {
@@ -2926,7 +2918,7 @@ function withUsePlasmicAuth<P extends object>(
 
 export const PlasmicDashboard = Object.assign(
   // Top-level PlasmicDashboard renders the root element
-  withUsePlasmicAuth(withPlasmicPageGuard(makeNodeComponent("mainSection"))),
+  withUsePlasmicAuth(makeNodeComponent("mainSection")),
   {
     // Helper components rendering sub-elements
     appShell: makeNodeComponent("appShell"),

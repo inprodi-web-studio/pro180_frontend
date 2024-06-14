@@ -980,12 +980,6 @@
           "componentImportPath": "~/components/Dropdown/Dropdown.tsx"
         },
         {
-          "id": "AOR__s9wDoG_",
-          "name": "AppGlobalContext",
-          "displayName": "AppGlobalContext",
-          "componentImportPath": "./components/AppGlobalContext"
-        },
-        {
           "id": "tNcz9rhbc3sz",
           "name": "Avatar",
           "displayName": "Avatar",
@@ -1200,12 +1194,6 @@
           "componentImportPath": "./components/AuthGlobalContext"
         },
         {
-          "id": "i1HnrIDOQxR5",
-          "name": "AppGlobalContext",
-          "displayName": "AppGlobalContext",
-          "componentImportPath": "./components/AppGlobalContext"
-        },
-        {
           "id": "-CZuoqiraz4X",
           "name": "Cropper",
           "displayName": "Cropper",
@@ -1282,7 +1270,8 @@
           "componentImportPath": "@plasmicpkgs/plasmic-query"
         }
       ],
-      "customFunctions": []
+      "customFunctions": [],
+      "jsBundleThemes": []
     }
   ],
   "globalVariants": {
