@@ -161,6 +161,7 @@ export type PlasmicDashboard__OverridesType = {
   icon5?: Flex__<"svg">;
   icon8?: Flex__<"svg">;
   charts?: Flex__<"div">;
+  resetConfirmation?: Flex__<typeof AntdModal>;
 };
 
 export interface DefaultDashboardProps {}
@@ -425,7 +426,8 @@ function PlasmicDashboard__RenderFunc(props: {
         variableType: "object",
         initFunc: ({ $props, $state, $queries, $ctx }) => ({
           register: false,
-          password: false
+          password: false,
+          reset: false
         })
       },
       {
@@ -433,6 +435,12 @@ function PlasmicDashboard__RenderFunc(props: {
         type: "private",
         variableType: "boolean",
         initFunc: ({ $props, $state, $queries, $ctx }) => false
+      },
+      {
+        path: "resetConfirmation.open",
+        type: "private",
+        variableType: "boolean",
+        initFunc: ({ $props, $state, $queries, $ctx }) => undefined
       }
     ],
     [$props, $ctx, $refs]
@@ -2330,28 +2338,143 @@ function PlasmicDashboard__RenderFunc(props: {
                       <Card
                         className={classNames("__wab_instance", sty.card__u8OL)}
                         content={
-                          <SimpleChart
+                          <Stack__
+                            as={"div"}
+                            hasGap={true}
                             className={classNames(
-                              "__wab_instance",
-                              sty.chart__wQZiA
+                              projectcss.all,
+                              sty.freeBox___1KeYe
                             )}
-                            data={[
-                              {
-                                type: "Cartas",
-                                Inversión:
-                                  $queries.getStats.data?.response
-                                    ?.letters_investment || 0
-                              },
-                              {
-                                type: "Llamadas",
-                                Inversión:
-                                  $queries.getStats.data?.response
-                                    ?.calls_investment || 0
-                              }
-                            ]}
-                            direction={"vertical"}
-                            type={"bar"}
-                          />
+                          >
+                            <div
+                              className={classNames(
+                                projectcss.all,
+                                sty.freeBox__hvmoB
+                              )}
+                            >
+                              <div
+                                className={classNames(
+                                  projectcss.all,
+                                  projectcss.__wab_text,
+                                  sty.text__xBgcd
+                                )}
+                              >
+                                {"Capital ($)"}
+                              </div>
+                              <SimpleChart
+                                className={classNames(
+                                  "__wab_instance",
+                                  sty.chart__wQZiA
+                                )}
+                                data={[
+                                  {
+                                    type: "Cartas",
+                                    Inversión:
+                                      $queries.getStats.data?.response
+                                        ?.letters_investment || 0
+                                  },
+                                  {
+                                    type: "Llamadas",
+                                    Inversión:
+                                      $queries.getStats.data?.response
+                                        ?.calls_investment || 0
+                                  }
+                                ]}
+                                direction={"vertical"}
+                                type={"bar"}
+                              />
+                            </div>
+                            <div
+                              className={classNames(
+                                projectcss.all,
+                                sty.freeBox___9EpSv
+                              )}
+                            >
+                              <div
+                                className={classNames(
+                                  projectcss.all,
+                                  projectcss.__wab_text,
+                                  sty.text___9QBlJ
+                                )}
+                              >
+                                {"Cartas"}
+                              </div>
+                              <div
+                                className={classNames(
+                                  projectcss.all,
+                                  projectcss.__wab_text,
+                                  sty.text__y2WE0
+                                )}
+                              >
+                                <React.Fragment>
+                                  {(() => {
+                                    try {
+                                      return (() => {
+                                        const letters =
+                                          $queries.getStats.data.response
+                                            .letters_investment;
+                                        return "$" + letters + " USD";
+                                      })();
+                                    } catch (e) {
+                                      if (
+                                        e instanceof TypeError ||
+                                        e?.plasmicType ===
+                                          "PlasmicUndefinedDataError"
+                                      ) {
+                                        return "Cartas";
+                                      }
+                                      throw e;
+                                    }
+                                  })()}
+                                </React.Fragment>
+                              </div>
+                            </div>
+                            <div
+                              className={classNames(
+                                projectcss.all,
+                                sty.freeBox__oxqp
+                              )}
+                            >
+                              <div
+                                className={classNames(
+                                  projectcss.all,
+                                  projectcss.__wab_text,
+                                  sty.text___52B4Z
+                                )}
+                              >
+                                {"Llamadas"}
+                              </div>
+                              <div
+                                className={classNames(
+                                  projectcss.all,
+                                  projectcss.__wab_text,
+                                  sty.text___8JNn8
+                                )}
+                              >
+                                <React.Fragment>
+                                  {(() => {
+                                    try {
+                                      return (() => {
+                                        const calls =
+                                          $queries.getStats.data.response
+                                            .calls_investment;
+                                        return "$" + calls + " USD";
+                                      })();
+                                    } catch (e) {
+                                      if (
+                                        e instanceof TypeError ||
+                                        e?.plasmicType ===
+                                          "PlasmicUndefinedDataError"
+                                      ) {
+                                        return "Cartas";
+                                      }
+                                      throw e;
+                                    }
+                                  })()}
+                                </React.Fragment>
+                              </div>
+                            </div>
+                          </Stack__>
                         }
                         description={
                           "Comparaci\u00f3n de inversi\u00f3n por medio de contacto"
@@ -2370,44 +2493,191 @@ function PlasmicDashboard__RenderFunc(props: {
                           sty.card___0Ujl8
                         )}
                         content={
-                          <SimpleChart
+                          <Stack__
+                            as={"div"}
+                            hasGap={true}
                             className={classNames(
-                              "__wab_instance",
-                              sty.chart___5HJcb
+                              projectcss.all,
+                              sty.freeBox__vpSrA
                             )}
-                            data={(() => {
-                              const lettersInvestment =
-                                $queries.getStats.data?.response
-                                  ?.letters_investment || 0;
-                              const lettersMade =
-                                $queries.getStats.data?.response
-                                  ?.letters_made || 0;
-                              const callsInvestment =
-                                $queries.getStats.data?.response
-                                  ?.calls_investment || 0;
-                              const callsMade =
-                                $queries.getStats.data?.response?.calls_made ||
-                                0;
-                              return [
-                                {
-                                  type: "Cartas",
-                                  Costo:
-                                    lettersMade === 0
-                                      ? 0
-                                      : (
-                                          lettersInvestment / lettersMade
-                                        ).toFixed(2)
-                                },
-                                {
-                                  type: "Llamadas",
-                                  Costo:
-                                    callsMade === 0
-                                      ? 0
-                                      : (callsInvestment / callsMade).toFixed(2)
-                                }
-                              ];
-                            })()}
-                          />
+                          >
+                            <div
+                              className={classNames(
+                                projectcss.all,
+                                sty.freeBox___3Oeqs
+                              )}
+                            >
+                              <div
+                                className={classNames(
+                                  projectcss.all,
+                                  projectcss.__wab_text,
+                                  sty.text__kg8Rz
+                                )}
+                              >
+                                {"Costo ($)"}
+                              </div>
+                              <SimpleChart
+                                className={classNames(
+                                  "__wab_instance",
+                                  sty.chart___5HJcb
+                                )}
+                                data={(() => {
+                                  const lettersInvestment =
+                                    $queries.getStats.data?.response
+                                      ?.letters_investment || 0;
+                                  const lettersMade =
+                                    $queries.getStats.data?.response
+                                      ?.letters_made || 0;
+                                  const callsInvestment =
+                                    $queries.getStats.data?.response
+                                      ?.calls_investment || 0;
+                                  const callsMade =
+                                    $queries.getStats.data?.response
+                                      ?.calls_made || 0;
+                                  return [
+                                    {
+                                      type: "Cartas",
+                                      Costo:
+                                        lettersMade === 0
+                                          ? 0
+                                          : (
+                                              lettersInvestment / lettersMade
+                                            ).toFixed(2)
+                                    },
+                                    {
+                                      type: "Llamadas",
+                                      Costo:
+                                        callsMade === 0
+                                          ? 0
+                                          : (
+                                              callsInvestment / callsMade
+                                            ).toFixed(2)
+                                    }
+                                  ];
+                                })()}
+                              />
+                            </div>
+                            <div
+                              className={classNames(
+                                projectcss.all,
+                                sty.freeBox__cDItb
+                              )}
+                            >
+                              <div
+                                className={classNames(
+                                  projectcss.all,
+                                  projectcss.__wab_text,
+                                  sty.text__eAbLi
+                                )}
+                              >
+                                {"Cartas"}
+                              </div>
+                              <div
+                                className={classNames(
+                                  projectcss.all,
+                                  projectcss.__wab_text,
+                                  sty.text__ug4I
+                                )}
+                              >
+                                <React.Fragment>
+                                  {(() => {
+                                    try {
+                                      return (() => {
+                                        const lettersInvestment =
+                                          $queries.getStats.data?.response
+                                            ?.letters_investment || 0;
+                                        const lettersMade =
+                                          $queries.getStats.data?.response
+                                            ?.letters_made || 0;
+                                        const callsInvestment =
+                                          $queries.getStats.data?.response
+                                            ?.calls_investment || 0;
+                                        const callsMade =
+                                          $queries.getStats.data?.response
+                                            ?.calls_made || 0;
+                                        return lettersMade === 0
+                                          ? "$0.00 USD"
+                                          : "$" +
+                                              (
+                                                lettersInvestment / lettersMade
+                                              ).toFixed(2) +
+                                              " USD";
+                                      })();
+                                    } catch (e) {
+                                      if (
+                                        e instanceof TypeError ||
+                                        e?.plasmicType ===
+                                          "PlasmicUndefinedDataError"
+                                      ) {
+                                        return "Cartas";
+                                      }
+                                      throw e;
+                                    }
+                                  })()}
+                                </React.Fragment>
+                              </div>
+                            </div>
+                            <div
+                              className={classNames(
+                                projectcss.all,
+                                sty.freeBox__f7PxR
+                              )}
+                            >
+                              <div
+                                className={classNames(
+                                  projectcss.all,
+                                  projectcss.__wab_text,
+                                  sty.text__zcEba
+                                )}
+                              >
+                                {"Llamadas"}
+                              </div>
+                              <div
+                                className={classNames(
+                                  projectcss.all,
+                                  projectcss.__wab_text,
+                                  sty.text__pcdgW
+                                )}
+                              >
+                                <React.Fragment>
+                                  {(() => {
+                                    try {
+                                      return (() => {
+                                        const lettersInvestment =
+                                          $queries.getStats.data?.response
+                                            ?.letters_investment || 0;
+                                        const lettersMade =
+                                          $queries.getStats.data?.response
+                                            ?.letters_made || 0;
+                                        const callsInvestment =
+                                          $queries.getStats.data?.response
+                                            ?.calls_investment || 0;
+                                        const callsMade =
+                                          $queries.getStats.data?.response
+                                            ?.calls_made || 0;
+                                        return callsMade === 0
+                                          ? "$0.00 USD"
+                                          : "$" +
+                                              (
+                                                callsInvestment / callsMade
+                                              ).toFixed(2) +
+                                              " USD";
+                                      })();
+                                    } catch (e) {
+                                      if (
+                                        e instanceof TypeError ||
+                                        e?.plasmicType ===
+                                          "PlasmicUndefinedDataError"
+                                      ) {
+                                        return "Cartas";
+                                      }
+                                      throw e;
+                                    }
+                                  })()}
+                                </React.Fragment>
+                              </div>
+                            </div>
+                          </Stack__>
                         }
                         description={
                           "Comparaci\u00f3n de costo por medio de llamada"
@@ -2519,6 +2789,312 @@ function PlasmicDashboard__RenderFunc(props: {
                         width={"100%"}
                       />
                     </Stack__>
+                    <AntdModal
+                      data-plasmic-name={"resetConfirmation"}
+                      data-plasmic-override={overrides.resetConfirmation}
+                      className={classNames(
+                        "__wab_instance",
+                        sty.resetConfirmation
+                      )}
+                      defaultStylesClassName={classNames(
+                        projectcss.root_reset,
+                        projectcss.plasmic_default_styles,
+                        projectcss.plasmic_mixins,
+                        projectcss.plasmic_tokens,
+                        plasmic_antd_5_hostless_css.plasmic_tokens,
+                        plasmic_plasmic_rich_components_css.plasmic_tokens,
+                        plasmic_inprodi_design_system_css.plasmic_tokens
+                      )}
+                      footer={
+                        <Stack__
+                          as={"div"}
+                          hasGap={true}
+                          className={classNames(
+                            projectcss.all,
+                            sty.freeBox__h3Ax7
+                          )}
+                        >
+                          <Button
+                            block={false}
+                            className={classNames(
+                              "__wab_instance",
+                              sty.button__atSdp
+                            )}
+                            danger={false}
+                            ghost={false}
+                            iconPosition={"start"}
+                            isSubmit={false}
+                            label={"Cancelar"}
+                            loading={false}
+                            onClick={async () => {
+                              const $steps = {};
+
+                              $steps["runCode"] = true
+                                ? (() => {
+                                    const actionArgs = {
+                                      customFunction: async () => {
+                                        return (() => {
+                                          return ($state.resetConfirmation.open =
+                                            false);
+                                        })();
+                                      }
+                                    };
+                                    return (({ customFunction }) => {
+                                      return customFunction();
+                                    })?.apply(null, [actionArgs]);
+                                  })()
+                                : undefined;
+                              if (
+                                $steps["runCode"] != null &&
+                                typeof $steps["runCode"] === "object" &&
+                                typeof $steps["runCode"].then === "function"
+                              ) {
+                                $steps["runCode"] = await $steps["runCode"];
+                              }
+                            }}
+                            size={"middle"}
+                            variant={"default"}
+                            withIcon={false}
+                          />
+
+                          <Button
+                            block={false}
+                            className={classNames(
+                              "__wab_instance",
+                              sty.button__cWrgZ
+                            )}
+                            danger={true}
+                            ghost={false}
+                            iconPosition={"start"}
+                            isSubmit={false}
+                            label={"Restablecer"}
+                            loading={(() => {
+                              try {
+                                return $state.query.reset;
+                              } catch (e) {
+                                if (
+                                  e instanceof TypeError ||
+                                  e?.plasmicType === "PlasmicUndefinedDataError"
+                                ) {
+                                  return false;
+                                }
+                                throw e;
+                              }
+                            })()}
+                            onClick={async () => {
+                              const $steps = {};
+
+                              $steps["updateQueryReset"] = true
+                                ? (() => {
+                                    const actionArgs = {
+                                      variable: {
+                                        objRoot: $state,
+                                        variablePath: ["query", "reset"]
+                                      },
+                                      operation: 4
+                                    };
+                                    return (({
+                                      variable,
+                                      value,
+                                      startIndex,
+                                      deleteCount
+                                    }) => {
+                                      if (!variable) {
+                                        return;
+                                      }
+                                      const { objRoot, variablePath } =
+                                        variable;
+
+                                      const oldValue = $stateGet(
+                                        objRoot,
+                                        variablePath
+                                      );
+                                      $stateSet(
+                                        objRoot,
+                                        variablePath,
+                                        !oldValue
+                                      );
+                                      return !oldValue;
+                                    })?.apply(null, [actionArgs]);
+                                  })()
+                                : undefined;
+                              if (
+                                $steps["updateQueryReset"] != null &&
+                                typeof $steps["updateQueryReset"] ===
+                                  "object" &&
+                                typeof $steps["updateQueryReset"].then ===
+                                  "function"
+                              ) {
+                                $steps["updateQueryReset"] = await $steps[
+                                  "updateQueryReset"
+                                ];
+                              }
+
+                              $steps["httpDelete"] = true
+                                ? (() => {
+                                    const actionArgs = {
+                                      dataOp: {
+                                        sourceId: "9SbcJmsXuR3ob6ZWwKJZY9",
+                                        opId: "b055726d-e09a-4548-be7a-223daeb1d6f2",
+                                        userArgs: {
+                                          headers: [`Bearer ${$ctx.token}`]
+                                        },
+                                        cacheKey: null,
+                                        invalidatedKeys: [
+                                          "b49a65a0-71aa-407c-8c4e-05cd7f881624"
+                                        ],
+                                        roleId: null
+                                      },
+                                      continueOnError: true
+                                    };
+                                    return (async ({
+                                      dataOp,
+                                      continueOnError
+                                    }) => {
+                                      try {
+                                        const response =
+                                          await executePlasmicDataOp(dataOp, {
+                                            userAuthToken:
+                                              dataSourcesCtx?.userAuthToken,
+                                            user: dataSourcesCtx?.user
+                                          });
+                                        await plasmicInvalidate(
+                                          dataOp.invalidatedKeys
+                                        );
+                                        return response;
+                                      } catch (e) {
+                                        if (!continueOnError) {
+                                          throw e;
+                                        }
+                                        return e;
+                                      }
+                                    })?.apply(null, [actionArgs]);
+                                  })()
+                                : undefined;
+                              if (
+                                $steps["httpDelete"] != null &&
+                                typeof $steps["httpDelete"] === "object" &&
+                                typeof $steps["httpDelete"].then === "function"
+                              ) {
+                                $steps["httpDelete"] = await $steps[
+                                  "httpDelete"
+                                ];
+                              }
+
+                              $steps["updateQueryReset2"] = true
+                                ? (() => {
+                                    const actionArgs = {
+                                      variable: {
+                                        objRoot: $state,
+                                        variablePath: ["query", "reset"]
+                                      },
+                                      operation: 4
+                                    };
+                                    return (({
+                                      variable,
+                                      value,
+                                      startIndex,
+                                      deleteCount
+                                    }) => {
+                                      if (!variable) {
+                                        return;
+                                      }
+                                      const { objRoot, variablePath } =
+                                        variable;
+
+                                      const oldValue = $stateGet(
+                                        objRoot,
+                                        variablePath
+                                      );
+                                      $stateSet(
+                                        objRoot,
+                                        variablePath,
+                                        !oldValue
+                                      );
+                                      return !oldValue;
+                                    })?.apply(null, [actionArgs]);
+                                  })()
+                                : undefined;
+                              if (
+                                $steps["updateQueryReset2"] != null &&
+                                typeof $steps["updateQueryReset2"] ===
+                                  "object" &&
+                                typeof $steps["updateQueryReset2"].then ===
+                                  "function"
+                              ) {
+                                $steps["updateQueryReset2"] = await $steps[
+                                  "updateQueryReset2"
+                                ];
+                              }
+
+                              $steps["runCode"] = true
+                                ? (() => {
+                                    const actionArgs = {
+                                      customFunction: async () => {
+                                        return ($state.resetConfirmation.open =
+                                          false);
+                                      }
+                                    };
+                                    return (({ customFunction }) => {
+                                      return customFunction();
+                                    })?.apply(null, [actionArgs]);
+                                  })()
+                                : undefined;
+                              if (
+                                $steps["runCode"] != null &&
+                                typeof $steps["runCode"] === "object" &&
+                                typeof $steps["runCode"].then === "function"
+                              ) {
+                                $steps["runCode"] = await $steps["runCode"];
+                              }
+                            }}
+                            size={"middle"}
+                            variant={"primary"}
+                            withIcon={false}
+                          />
+                        </Stack__>
+                      }
+                      modalScopeClassName={sty["resetConfirmation__modal"]}
+                      onOpenChange={generateStateOnChangeProp($state, [
+                        "resetConfirmation",
+                        "open"
+                      ])}
+                      open={generateStateValueProp($state, [
+                        "resetConfirmation",
+                        "open"
+                      ])}
+                      title={"Restablecer Estad\u00edsticas"}
+                      trigger={
+                        <div
+                          className={classNames(
+                            projectcss.all,
+                            projectcss.__wab_text,
+                            sty.text__rRuBg
+                          )}
+                        >
+                          {"Restablecer mis Estad\u00edsticas"}
+                        </div>
+                      }
+                    >
+                      <div
+                        className={classNames(
+                          projectcss.all,
+                          sty.freeBox___23XtV
+                        )}
+                      >
+                        <div
+                          className={classNames(
+                            projectcss.all,
+                            projectcss.__wab_text,
+                            sty.text__yCwEr
+                          )}
+                        >
+                          {
+                            "\u00bfSeguro que quieres reiniciar todas las estad\u00edsticas a 0? Toma en cuenta que esta acci\u00f3n ser\u00e1 permanente y no podr\u00e1s recuperar tu informaci\u00f3n."
+                          }
+                        </div>
+                      </div>
+                    </AntdModal>
                   </React.Fragment>
                 )}
               </DataCtxReader__>
@@ -2587,7 +3163,8 @@ const PlasmicDescendants = {
     "icon7",
     "icon5",
     "icon8",
-    "charts"
+    "charts",
+    "resetConfirmation"
   ],
   appShell: [
     "appShell",
@@ -2636,7 +3213,8 @@ const PlasmicDescendants = {
     "icon7",
     "icon5",
     "icon8",
-    "charts"
+    "charts",
+    "resetConfirmation"
   ],
   container: [
     "container",
@@ -2803,7 +3381,8 @@ const PlasmicDescendants = {
   icon7: ["icon7"],
   icon5: ["icon5"],
   icon8: ["icon8"],
-  charts: ["charts"]
+  charts: ["charts"],
+  resetConfirmation: ["resetConfirmation"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
@@ -2857,6 +3436,7 @@ type NodeDefaultElementType = {
   icon5: "svg";
   icon8: "svg";
   charts: "div";
+  resetConfirmation: typeof AntdModal;
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -2991,6 +3571,7 @@ export const PlasmicDashboard = Object.assign(
     icon5: makeNodeComponent("icon5"),
     icon8: makeNodeComponent("icon8"),
     charts: makeNodeComponent("charts"),
+    resetConfirmation: makeNodeComponent("resetConfirmation"),
 
     // Metadata about props expected for PlasmicDashboard
     internalVariantProps: PlasmicDashboard__VariantProps,
