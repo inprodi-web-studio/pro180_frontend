@@ -99,7 +99,7 @@ import MailboxDuotonesvgIcon from "../inprodi_design_system/icons/PlasmicIcon__M
 import CheckCircleDuotonesvgIcon from "../inprodi_design_system/icons/PlasmicIcon__CheckCircleDuotonesvg"; // plasmic-import: W6oixRWCrp9h/icon
 import MoneyWavyDuotonesvgIcon from "../inprodi_design_system/icons/PlasmicIcon__MoneyWavyDuotonesvg"; // plasmic-import: BKdwVE9CoTra/icon
 
-import { showNotification as __fn_showNotification } from "../../../helpers/showNotification"; // plasmic-import: showNotification/customFunction
+import { showNotification as __fn_showNotification } from "~/helpers/showNotification"; // plasmic-import: showNotification/customFunction
 
 createPlasmicElementProxy;
 
@@ -2059,7 +2059,8 @@ function PlasmicDashboard__RenderFunc(props: {
                         title={"Llamadas Realizadas"}
                         value={(() => {
                           try {
-                            return $queries.getStats.data.response.calls_made;
+                            return $queries.getStats.data.response
+                              .letters_answered;
                           } catch (e) {
                             if (
                               e instanceof TypeError ||
@@ -2412,8 +2413,10 @@ function PlasmicDashboard__RenderFunc(props: {
                                       return (() => {
                                         const letters =
                                           $queries.getStats.data.response
-                                            .letters_investment;
-                                        return "$" + letters + " USD";
+                                            .letters_investment || 0;
+                                        return (
+                                          "$" + letters.toFixed(2) + " USD"
+                                        );
                                       })();
                                     } catch (e) {
                                       if (
@@ -2457,8 +2460,8 @@ function PlasmicDashboard__RenderFunc(props: {
                                       return (() => {
                                         const calls =
                                           $queries.getStats.data.response
-                                            .calls_investment;
-                                        return "$" + calls + " USD";
+                                            .calls_investment || 0;
+                                        return "$" + calls.toFixed(2) + " USD";
                                       })();
                                     } catch (e) {
                                       if (
@@ -2527,13 +2530,13 @@ function PlasmicDashboard__RenderFunc(props: {
                                       ?.letters_investment || 0;
                                   const lettersMade =
                                     $queries.getStats.data?.response
-                                      ?.letters_made || 0;
+                                      ?.letters_answered || 0;
                                   const callsInvestment =
                                     $queries.getStats.data?.response
                                       ?.calls_investment || 0;
                                   const callsMade =
                                     $queries.getStats.data?.response
-                                      ?.calls_made || 0;
+                                      ?.calls_answered || 0;
                                   return [
                                     {
                                       type: "Cartas",

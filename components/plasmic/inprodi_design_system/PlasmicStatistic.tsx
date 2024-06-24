@@ -84,6 +84,7 @@ export type PlasmicStatistic__ArgsType = {
   title?: string;
   prefix?: string;
   suffix?: string;
+  precision?: number;
 };
 type ArgPropType = keyof PlasmicStatistic__ArgsType;
 export const PlasmicStatistic__ArgProps = new Array<ArgPropType>(
@@ -91,7 +92,8 @@ export const PlasmicStatistic__ArgProps = new Array<ArgPropType>(
   "value",
   "title",
   "prefix",
-  "suffix"
+  "suffix",
+  "precision"
 );
 
 export type PlasmicStatistic__OverridesType = {
@@ -109,6 +111,7 @@ export interface DefaultStatisticProps {
   prefix?: string;
   suffix?: string;
   className?: string;
+  precision?: number;
 }
 
 const $$ = {};
@@ -263,6 +266,19 @@ function PlasmicStatistic__RenderFunc(props: {
               data-plasmic-name={"animatedNumber"}
               data-plasmic-override={overrides.animatedNumber}
               className={classNames("__wab_instance", sty.animatedNumber)}
+              precision={(() => {
+                try {
+                  return $props.precision;
+                } catch (e) {
+                  if (
+                    e instanceof TypeError ||
+                    e?.plasmicType === "PlasmicUndefinedDataError"
+                  ) {
+                    return 0;
+                  }
+                  throw e;
+                }
+              })}
               value={(() => {
                 try {
                   return $props.value;
