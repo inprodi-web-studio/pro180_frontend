@@ -99,7 +99,7 @@ import MailboxDuotonesvgIcon from "../inprodi_design_system/icons/PlasmicIcon__M
 import CheckCircleDuotonesvgIcon from "../inprodi_design_system/icons/PlasmicIcon__CheckCircleDuotonesvg"; // plasmic-import: W6oixRWCrp9h/icon
 import MoneyWavyDuotonesvgIcon from "../inprodi_design_system/icons/PlasmicIcon__MoneyWavyDuotonesvg"; // plasmic-import: BKdwVE9CoTra/icon
 
-import { showNotification as __fn_showNotification } from "~/helpers/showNotification"; // plasmic-import: showNotification/customFunction
+import { showNotification as __fn_showNotification } from "../../../helpers/showNotification"; // plasmic-import: showNotification/customFunction
 
 createPlasmicElementProxy;
 
