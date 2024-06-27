@@ -2591,13 +2591,13 @@ function PlasmicDashboard__RenderFunc(props: {
                                             ?.letters_investment || 0;
                                         const lettersMade =
                                           $queries.getStats.data?.response
-                                            ?.letters_made || 0;
+                                            ?.letters_answered || 0;
                                         const callsInvestment =
                                           $queries.getStats.data?.response
                                             ?.calls_investment || 0;
                                         const callsMade =
                                           $queries.getStats.data?.response
-                                            ?.calls_made || 0;
+                                            ?.calls_answered || 0;
                                         return lettersMade === 0
                                           ? "$0.00 USD"
                                           : "$" +
