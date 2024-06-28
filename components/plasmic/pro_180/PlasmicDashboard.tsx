@@ -2657,7 +2657,7 @@ function PlasmicDashboard__RenderFunc(props: {
                                             ?.calls_investment || 0;
                                         const callsMade =
                                           $queries.getStats.data?.response
-                                            ?.calls_made || 0;
+                                            ?.calls_answered || 0;
                                         return callsMade === 0
                                           ? "$0.00 USD"
                                           : "$" +
