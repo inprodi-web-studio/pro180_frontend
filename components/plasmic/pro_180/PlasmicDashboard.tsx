@@ -2059,8 +2059,7 @@ function PlasmicDashboard__RenderFunc(props: {
                         title={"Llamadas Realizadas"}
                         value={(() => {
                           try {
-                            return $queries.getStats.data.response
-                              .letters_answered;
+                            return $queries.getStats.data.response.calls_made;
                           } catch (e) {
                             if (
                               e instanceof TypeError ||
